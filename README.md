@@ -1,8 +1,8 @@
 # Semester Project - CIS4362
 
 Authors: Danny Moolchand  
-Class: Introduction to Cryptology 
-Date: December 4, 2019  
+Class: Introduction to Cryptology   
+Date: December 4, 2019    
 
 
 ----

@@ -61,31 +61,49 @@
                 console.log("Received message");
             });
 
-            $("#sendbutton").on("click", function () {
-                console.log("Client Key: " + clientKey);
-                socket.emit("userNames", $("#username").val());
-                socket.send(encryptMsg($("#myMessage").val(), clientKey));
-                $("#myMessage").val("");
-            });
-            $("#myMessage").on("keypress", function (e) {
-                if (e.which === 13) {
-                    socket.emit("userNames", $("#username").val());
-                    socket.send(encryptMsg($("#myMessage").val(), clientKey));
-                    $("#myMessage").val("");
-                }
-            });
-
             socket.on("newOptions", function (key) {
                 // console.log("Client Reading Key from Server: " + key);
                 clientKey = key;
                 $("#pds").append(key + "<br>");
             });
 
-            $("#sendForm").on("click", function () {
-                socket.emit('newOptions', $("#key").val())
-                $("#key").val("");
+            //MY MESSAGE HANDLERS
+            $("#sendbutton").on("click", function () {
+                if ($("#myMessage").val() != "") {
+                    console.log("Client Key: " + clientKey);
+                    socket.emit("userNames", $("#username").val());
+                    socket.send(encryptMsg($("#myMessage").val(), clientKey));
+                    $("#myMessage").val("");
+                }
+            });
+            $("#myMessage").on("keypress", function (e) {
+                if (e.which === 13) {
+                    if ($("#myMessage").val() != "") {
+                        console.log("Client Key: " + clientKey);
+                        socket.emit("userNames", $("#username").val());
+                        socket.send(encryptMsg($("#myMessage").val(), clientKey));
+                        $("#myMessage").val("");
+                    }
+                }
             });
 
+            //KEY HANDLERS
+            $("#sendForm").on("click", function () {
+                if ($("#myKey").val() != "") {
+                    socket.emit('newOptions', $("#myKey").val())
+                    $("#myKey").val("");
+                }
+            });
+            $("#myKey").on("keypress", function (e) {
+                if (e.which === 13) {
+                    if ($("#myKey").val() != "") {
+                        socket.emit('newOptions', $("#myKey").val())
+                        $("#myKey").val("");
+                    }
+                }
+            });
+
+            //USERNAME HANDLERS
             $("#sendUser").on("click", function () {
                 if ($("#username").val() != "") {
                     $("#username").attr("disabled", "disabled");
@@ -120,7 +138,7 @@
 
         <div>
             <h4>Key</h4>
-            <input name="key" id="key" placeholder="Enter Key Here!">
+            <input type="text" id="myKey" placeholder="Enter Key Here!">
             <button id="sendForm">Submit</button>
         </div>
 

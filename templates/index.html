@@ -10,19 +10,22 @@
     </link>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
 
     <!-- DIV for asking user for username -->
-    <div id='loginForm' class=''>
+    <div id='loginForm'>
         <h1>Please Enter A Username</h1>
         <input name="username" id="username">
+        <br>
         <button id="sendUser">Submit</button>
-        <!--Spacer-->
-        <br>
-        <br>
     </div>
+    <!--Spacer-->
+    <br>
+    <br>
 
     <!-- encompass chat room and keys in a div and hide div before page load
     show div when button is pressed -->

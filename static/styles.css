@@ -1,0 +1,30 @@
+
+body 
+{
+    background-color:#e8ecf1 ;
+}
+
+#loginForm
+{
+    width: 460px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(200%);
+}
+
+#username
+{
+    width: 460px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;   
+}
+
+#sendUser
+{
+    width: 100px;
+    text-align: center;
+    margin-left: 170px;
+    margin-right: auto;
+}

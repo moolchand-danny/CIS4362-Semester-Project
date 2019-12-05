@@ -35,7 +35,10 @@ function encryptMsg(plaintext, key) {
   }
 
   //Splitting the key into an array to use as reference
-  var keyArray = key.split("");
+  var keyArrayUnfiltered = key.split("");
+
+  //Filtering the key so there are no repeating chars
+  var keyArray = [...new Set(keyArrayUnfiltered)];
 
   //Created the sorted key array to use as map
   var sortedKeyArray = Array.from(keyArray);
@@ -86,7 +89,10 @@ function decryptMsg(ciphertext, key) {
   }
 
   //Splitting the key into an array to use as reference
-  var keyArray = key.split("");
+  var keyArrayUnfiltered = key.split("");
+
+  //Filtering the key so there are no repeating chars
+  var keyArray = [...new Set(keyArrayUnfiltered)];
 
   //Created the sorted key array to use as map
   var sortedKeyArray = Array.from(keyArray);
@@ -99,9 +105,9 @@ function decryptMsg(ciphertext, key) {
   var iterator = 0;
   for (i = 0; i < sortedKeyArray.length; i++) {
     var letter = sortedKeyArray[i];
-    //console.log("Cur Key Letter: " + letter);
+    // console.log("Cur Key Letter: " + letter);
     var keyIndex = keyArray.indexOf(letter);
-    //console.log("Curr Key Index: " + keyIndex);
+    // console.log("Curr Key Index: " + keyIndex);
     for (j = 0; j < colLen; j++) {
       //console.log(cipherArray[j][keyIndex]);
       plainArray[j][keyIndex] = ciphertext.charAt(iterator++);
@@ -124,8 +130,8 @@ function decryptMsg(ciphertext, key) {
       plaintext = plaintext.substr(0, n);
     }
   }
-  //console.log(plainArray);
+  // console.log(plainArray);
 
-  //   console.log(plaintext);
+  // console.log(plaintext);
   return plaintext;
 }

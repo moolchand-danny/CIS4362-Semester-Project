@@ -31,8 +31,10 @@
             //The chatApp div is hidden until a username is inputted
             $('#chatApp').hide();
 
+            // Create the socket to connect to the server
             var socket = io.connect("http://127.0.0.1:5000/msg", { forceNew: true });
 
+            //Intialize a default key of "gators"
             var clientKey = "gators";
 
             socket.on("connect", function () {

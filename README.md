@@ -1,7 +1,7 @@
-# Semester Project - CIS4362
+# Semester Project - Encrypted Chat App
 
-Authors: Danny Moolchand  
-Class: Introduction to Cryptology   
+Author: Danny Moolchand  
+Class: CIS4362 - Introduction to Cryptology   
 Date: December 4, 2019    
 
 

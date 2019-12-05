@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <title>Cryptology Project - Chat Room</title>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <!-- <script>src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts.js') }}"></script>
+</head>
+
+<body>
+
+    <!-- DIV for asking user for username -->
+    <div id='loginForm' class=''>
+        <h1>Please Enter A Username</h1>
+        <input name="username" id="username">
+        <button id="sendUser">Submit</button>
+        <!--Spacer-->
+        <br>
+        <br>
+    </div>
+
+    <!-- encompass chat room and keys in a div and hide div before page load
+    show div when button is pressed -->
+    <script>
+        $(document).ready(function () {
+            //The chatApp div is hidden until a username is inputted
+            $('#chatApp').hide();
+
+            var socket = io.connect("http://127.0.0.1:5000/msg", { forceNew: true });
+
+            var clientKey = "gators";
+
+            socket.on("connect", function () {
+                socket.emit("users", "New user has connected!");
+            });
+
+            socket.on("disconnect", function () {
+                socket.emit("users", "A user has disconnected");
+            });
+
+            socket.on("users", function (msg) {
+                $("#messages").append(msg.toUpperCase() + "<br>");
+            });
+
+            socket.on("userNames", function (msg) {
+                $("#messages").append("<b>" + msg + "</b>" + "   ");
+            });
+
+            socket.on("message", function (msg) {
+                $("#messages").append(decryptMsg(msg, clientKey) + "<br>");
+                console.log("Received message");
+            });
+
+            $("#sendbutton").on("click", function () {
+                console.log("Client Key: " + clientKey);
+                socket.emit("userNames", $("#username").val());
+                socket.send(encryptMsg($("#myMessage").val(), clientKey));
+                $("#myMessage").val("");
+            });
+            $("#myMessage").on("keypress", function (e) {
+                if (e.which === 13) {
+                    socket.emit("userNames", $("#username").val());
+                    socket.send(encryptMsg($("#myMessage").val(), clientKey));
+                    $("#myMessage").val("");
+                }
+            });
+
+            socket.on("newOptions", function (key) {
+                // console.log("Client Reading Key from Server: " + key);
+                clientKey = key;
+                $("#pds").append(key + "<br>");
+            });
+
+            $("#sendForm").on("click", function () {
+                socket.emit('newOptions', $("#key").val())
+                $("#key").val("");
+            });
+
+            $("#sendUser").on("click", function () {
+                if ($("#username").val() != "") {
+                    $("#username").attr("disabled", "disabled");
+                    $("#loginForm").slideUp();
+                    $('#chatApp').slideDown();
+                }
+            });
+            $("#username").on("keypress", function (e) {
+                if (e.which === 13) {
+                    if ($("#username").val() != "") {
+                        $("#username").attr("disabled", "disabled");
+                        $("#loginForm").slideUp();
+                        $('#chatApp').slideDown();
+                    }
+                }
+            });
+
+        });
+
+    </script>
+
+    <div id='chatApp'>
+        <h1>Chat Room</h1>
+        <div>
+            <ul id="messages"></ul>
+            <input type="text" id="myMessage" placeholder="Enter Message Here!">
+            <button id="sendbutton">Send</button>
+            <!--Spacer-->
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <h4>Key</h4>
+            <input name="key" id="key" placeholder="Enter Key Here!">
+            <button id="sendForm">Submit</button>
+        </div>
+
+        <div>
+            <h6>List of Used Keys:</h6>
+            <ul id="pds"></ul>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

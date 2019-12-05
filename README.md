@@ -9,9 +9,9 @@ Date: December 4, 2019
 
 ### Table of Contents
 - [Semester Project - CIS4362](#semester-project---cis4362)
-    - [Table of Contents](#table-of-contents)
-    - [Project Structure](#project-structure)
-    - [Setup and Execution Instructions](#setup-and-execution-instructions)
+- [Table of Contents](#table-of-contents)
+- [Project Structure](#project-structure)
+- [Setup and Execution Instructions](#setup-and-execution-instructions)
 
 ---
 
@@ -21,12 +21,12 @@ For the client, I used the jQuery and Bootstrap frameworks. jQuery was used to m
 
 Links to the technologies used are included below.
 
-[Python 3.7](https://www.python.org/download/releases/3.0/)
-[Flask](https://pypi.org/project/Flask/)
-[SocketIO](https://python-socketio.readthedocs.io/en/latest/server.html)
-[jQuery](https://jquery.com/)
-[Boostrap](https://getbootstrap.com/)
-[VSCode](https://code.visualstudio.com/)
+[Python 3.7](https://www.python.org/download/releases/3.0/) 
+[Flask](https://pypi.org/project/Flask/) 
+[SocketIO](https://python-socketio.readthedocs.io/en/latest/server.html) 
+[jQuery](https://jquery.com/) 
+[Boostrap](https://getbootstrap.com/) 
+[VSCode](https://code.visualstudio.com/) 
 
 ---
 
